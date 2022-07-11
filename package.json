@@ -1,0 +1,29 @@
+{
+  "name": "@opentorc/fullscreen-scroller",
+  "version": "1.0.0",
+  "description": "A simple React component for fullscreen scrolling. Made by Opentorc",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opentorc/FullScreenScroller.git"
+  },
+  "keywords": [
+    "react",
+    "fullscreen",
+    "scroll",
+    "opentorc"
+  ],
+  "author": "Maksim Pokhiliy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/opentorc/FullScreenScroller/issues"
+  },
+  "homepage": "https://github.com/opentorc/FullScreenScroller#readme",
+  "dependencies": {
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0"
+  }
+}
