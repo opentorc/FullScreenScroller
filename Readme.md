@@ -1,7 +1,5 @@
 A simple fullscreen scroller component built with React. Made by Opentorc
 
-Please check the [demo](https://9fun92.csb.app/).
-
 ## Installation
 
 **npm:**
@@ -36,6 +34,8 @@ function App() {
   </FullScreenScroller>;
 }
 ```
+
+[![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/9fun92?resolutionWidth=1024&resolutionHeight=675)
 
 ## Basic features
 
