@@ -1,0 +1,85 @@
+.container {
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 12px;
+    animation: 0.3s linear forwards showControls;
+}
+
+.containerHidden {
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 12px;
+    animation: 0.1s linear forwards hideControls;
+}
+
+.slideNumber {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+}
+
+.slide {
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    margin: 5px 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.activeSlideWrapper {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #62c4e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.activeSlide {
+    width: 12px;
+    height: 12px;
+    background-color: #62c4e8;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slide:hover {
+    transform: scale(1.2);
+}
+
+@keyframes showControls {
+    from {
+        left: -50px;
+    }
+
+    to {
+        left: 50px;
+    }
+}
+
+@keyframes hideControls {
+    from {
+        left: 50px;
+    }
+
+    to {
+        left: -50px;
+    }
+}
