@@ -1,5 +1,7 @@
 A simple fullscreen scroller component built with React. Made by Opentorc
 
+Please check the [demo](https://9fun92.csb.app/).
+
 ## Installation
 
 **npm:**
@@ -35,4 +37,15 @@ function App() {
 }
 ```
 
-[![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/gifted-cerf-9fun92)
+## Basic features
+
+<ul>
+  <li>Press arrow right / arrow down / page down / wheel down to scroll to next screen</li>
+  <li>Press arrow left / arrow top / page up / wheel up to scroll to previos screen</li>
+</ul>
+
+## Props
+
+<ul>
+  <li>controls - boolean value. Whether slide navigation will be shown. True by default</li>
+</ul>
