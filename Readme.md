@@ -1,17 +1,17 @@
-A simple fullscreen scroller component built with React
+A simple fullscreen scroller component built with React. Made by Opentorc
 
 ## Installation
 
 **npm:**
 
 ```sh
-npm install @opentorc/react-fullscreen-scroller
+npm install @torc/react-fullscreen-scroller
 ```
 
 **yarn:**
 
 ```sh
-yarn add @opentorc/react-fullscreen-scroller
+yarn add @torc/react-fullscreen-scroller
 ```
 
 ## Getting started with React FullScreen Scroller
@@ -20,7 +20,7 @@ Here is an example of a basic using `FullScreenScroller` component:
 
 ```jsx
 import React from "react";
-import FullScreenScroller from "@opentorc/react-fullscreen-scroller";
+import FullScreenScroller from "@torc/react-fullscreen-scroller";
 
 function App() {
   <FullScreenScroller>
