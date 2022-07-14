@@ -5,11 +5,13 @@ import Controls from "./components/Controls";
 
 const SCROLL_KEY_CODES = [33, 34, 37, 38, 39, 40];
 
-const FullPageScroll = ({ children, controls }) => {
+const FullPageScroll = ({ children, controls, desktopBreakPoint }) => {
   const [activeSlide, setActiveSlide] = useState(1);
   const [isScrollingAllowed, setIsScrollingAllowed] = useState(true);
   const [touchStartPosition, setTouchStartPosition] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+  const [isDesktop, setIsDesktop] = useState(
+    window.innerWidth >= desktopBreakPoint
+  );
 
   const totalSlidesCount = useMemo(() => children.length, [children.length]);
 
@@ -170,7 +172,8 @@ const FullPageScroll = ({ children, controls }) => {
     ]
   );
 
-  const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+  const handleResize = () =>
+    setIsDesktop(window.innerWidth >= desktopBreakPoint);
 
   const hideScrollbar = () => {
     const html = document.getElementsByTagName("html")[0];
@@ -244,10 +247,12 @@ const FullPageScroll = ({ children, controls }) => {
 
 FullPageScroll.propTypes = {
   controls: PropTypes.bool,
+  desktopBreakPoint: PropTypes.number,
 };
 
 FullPageScroll.defaultProps = {
   controls: true,
+  desktopBreakPoint: 1024,
 };
 
 export default FullPageScroll;
