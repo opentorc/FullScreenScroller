@@ -48,4 +48,6 @@ function App() {
 
 <ul>
   <li>controls - boolean value. Whether slide navigation will be shown. True by default</li>
+
+  <li>desktopBreakPoint - number value. The width of the screen on which the module will work. By default 1024px</li>
 </ul>
