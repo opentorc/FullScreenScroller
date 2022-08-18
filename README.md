@@ -21,9 +21,10 @@ Here is an example of a basic using `FullScreenScroller` component:
 ```jsx
 import React from "react";
 import FullScreenScroller from "@torc/react-fullscreen-scroller";
+import "@torc/react-fullscreen-scroller/dist/index.css";
 
 function App() {
-  <FullScreenScroller>
+  <FullScreenScroller desktopBreakPoint={768} controls>
     <div>
       <p>First screen</p>
     </div>
