@@ -128,20 +128,23 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
     ]
   );
 
-  const handleNumberKeyPress = useCallback((keyCode) => {
-    const nextActiveSlide = NUMBERS_KEY_CODES_LINKING[keyCode];
-    const isNextSlideDefined = nextActiveSlide <= totalSlidesCount;
-    const nextScrollPosition = window.innerHeight * (nextActiveSlide - 1);
+  const handleNumberKeyPress = useCallback(
+    (keyCode) => {
+      const nextActiveSlide = NUMBERS_KEY_CODES_LINKING[keyCode];
+      const isNextSlideDefined = nextActiveSlide <= totalSlidesCount;
+      const nextScrollPosition = window.innerHeight * (nextActiveSlide - 1);
 
-    if (!isNextSlideDefined) {
-      return;
-    }
+      if (!isNextSlideDefined) {
+        return;
+      }
 
-    scrollToPosition("top", nextScrollPosition);
-    afterSlideChangeAction();
+      scrollToPosition("top", nextScrollPosition);
+      afterSlideChangeAction();
 
-    setActiveSlide(nextActiveSlide);
-  }, []);
+      setActiveSlide(nextActiveSlide);
+    },
+    [afterSlideChangeAction, scrollToPosition, totalSlidesCount]
+  );
 
   const handleKeyPress = useCallback(
     (e) => {
@@ -180,6 +183,7 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
     },
     [
       isScrollingAllowed,
+      handleNumberKeyPress,
       getNextActiveSlide,
       getNextScrollPosition,
       scrollToPosition,
