@@ -3,7 +3,27 @@ import PropTypes from "prop-types";
 
 import Controls from "./components/Controls";
 
-const SCROLL_KEY_CODES = [33, 34, 37, 38, 39, 40];
+const SCROLL_KEY_CODES = { top: [33, 37, 38], bottom: [34, 39, 40] };
+const NUMBERS_KEY_CODES_LINKING = {
+  49: 1,
+  97: 1,
+  50: 2,
+  98: 2,
+  51: 3,
+  99: 3,
+  52: 4,
+  100: 4,
+  53: 5,
+  101: 5,
+  54: 6,
+  102: 6,
+  55: 7,
+  103: 7,
+  56: 8,
+  104: 8,
+  57: 9,
+  105: 9
+};
 
 const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
   const [activeSlide, setActiveSlide] = useState(1);
@@ -27,7 +47,7 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
 
     setTimeout(() => {
       setIsScrollingAllowed(true);
-    }, 1000);
+    }, 500);
   }, []);
 
   const getNextActiveSlide = useCallback(
@@ -108,16 +128,47 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
     ]
   );
 
+  const handleNumberKeyPress = useCallback((keyCode) => {
+    const nextActiveSlide = NUMBERS_KEY_CODES_LINKING[keyCode];
+    const isNextSlideDefined = nextActiveSlide <= totalSlidesCount;
+    const nextScrollPosition = window.innerHeight * (nextActiveSlide - 1);
+
+    if (!isNextSlideDefined) {
+      return;
+    }
+
+    scrollToPosition("top", nextScrollPosition);
+    afterSlideChangeAction();
+
+    setActiveSlide(nextActiveSlide);
+  }, []);
+
   const handleKeyPress = useCallback(
     (e) => {
       const { keyCode } = e;
-      const isScrollKey = SCROLL_KEY_CODES.includes(keyCode);
+      const isScrollKey = [
+        ...SCROLL_KEY_CODES.top,
+        ...SCROLL_KEY_CODES.bottom
+      ].includes(keyCode);
+
+      const isNumberKey = Object.prototype.hasOwnProperty.call(
+        NUMBERS_KEY_CODES_LINKING,
+        keyCode
+      );
+
+      if (isNumberKey) {
+        handleNumberKeyPress(keyCode);
+
+        return;
+      }
 
       if (isScrollKey && isScrollingAllowed) {
         e.preventDefault();
 
-        const direction =
-          keyCode === 34 || keyCode === 39 || keyCode === 40 ? "bottom" : "top";
+        const direction = SCROLL_KEY_CODES.bottom.includes(keyCode)
+          ? "bottom"
+          : "top";
+
         const nextActiveSlide = getNextActiveSlide(direction);
         const nextScrollPosition = getNextScrollPosition(direction);
 

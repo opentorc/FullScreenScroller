@@ -21,10 +21,6 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
         activeSlideIndex >= arrayForRender.length;
       const isActiveSlide = isLastSlide || index === activeSlideIndex - 1;
 
-      if (index === 0) {
-        return null;
-      }
-
       if (isActiveSlide) {
         return (
           <div
@@ -48,7 +44,9 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
 
   return (
     <div className={containerClassName}>
-      <span className={styles.slideNumber}>0{activeSlideIndex - 1}</span>
+      <span className={styles.slideNumber}>{`${
+        activeSlideIndex < 10 ? "0" : ""
+      }${activeSlideIndex}`}</span>
       {renderControls()}
     </div>
   );
