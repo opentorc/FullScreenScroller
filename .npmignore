@@ -1,0 +1,9 @@
+## the src folder
+src
+## node modules folder
+node_modules
+## git repository related files
+.git
+.gitignore
+#others
+package-lock.json
