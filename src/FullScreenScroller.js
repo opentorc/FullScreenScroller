@@ -4,7 +4,18 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Controls from "./components/Controls";
 import { NUMBERS_KEY_CODES_LINKING, SCROLL_KEY_CODES } from "./utils/constants";
 
-const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
+const FullScreenScroller = ({
+  children,
+  controls,
+  desktopBreakPoint,
+  containerStyle,
+  controlsStyle,
+  containerClassName,
+  controlsContainerClassName,
+  slideNumberClassName,
+  activeControlClassName,
+  inactiveControlClassName,
+}) => {
   const [activeSlide, setActiveSlide] = useState(1);
   const [isScrollingAllowed, setIsScrollingAllowed] = useState(true);
   const [touchStartPosition, setTouchStartPosition] = useState(0);
@@ -268,12 +279,17 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
   }, [isDesktop, handleResize, subscribe, unsubscribe]);
 
   return (
-    <div>
+    <div className={containerClassName} style={containerStyle}>
       {children}
       {controls && (
         <Controls
           count={totalSlidesCount}
           activeSlideIndex={activeSlide}
+          controlsContainerClassName={controlsContainerClassName}
+          slideNumberClassName={slideNumberClassName}
+          activeControlClassName={activeControlClassName}
+          inactiveControlClassName={inactiveControlClassName}
+          style={controlsStyle}
           onClick={handleControlClick}
         />
       )}
@@ -282,13 +298,39 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
 };
 
 FullScreenScroller.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
   controls: PropTypes.bool,
   desktopBreakPoint: PropTypes.number,
+  containerClassName: PropTypes.string,
+  controlsContainerClassName: PropTypes.string,
+  slideNumberClassName: PropTypes.string,
+  activeControlClassName: PropTypes.string,
+  inactiveControlClassName: PropTypes.string,
+  containerStyle: PropTypes.object,
+  controlsStyle: PropTypes.shape({
+    container: PropTypes.object,
+    slideNumber: PropTypes.object,
+    activeControl: PropTypes.object,
+    inactiveControl: PropTypes.object,
+  }),
 };
 
 FullScreenScroller.defaultProps = {
+  children: undefined,
   controls: true,
   desktopBreakPoint: 1024,
+  containerClassName: "",
+  controlsContainerClassName: "",
+  slideNumberClassName: "",
+  activeControlClassName: "",
+  inactiveControlClassName: "",
+  containerStyle: {},
+  controlsStyle: {
+    container: {},
+    slideNumber: {},
+    activeControl: {},
+    inactiveControl: {},
+  },
 };
 
 export default FullScreenScroller;

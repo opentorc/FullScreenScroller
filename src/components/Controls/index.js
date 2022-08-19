@@ -3,7 +3,16 @@ import React, { useCallback, useMemo } from "react";
 
 import styles from "./Controls.module.css";
 
-const Controls = ({ count, activeSlideIndex, onClick }) => {
+const Controls = ({
+  count,
+  activeSlideIndex,
+  style,
+  controlsContainerClassName,
+  slideNumberClassName,
+  activeControlClassName,
+  inactiveControlClassName,
+  onClick,
+}) => {
   const arrayForRender = useMemo(() => new Array(count).fill(true), [count]);
   const containerClassName = useMemo(() => {
     const className =
@@ -25,7 +34,8 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
         return (
           <div
             key={Math.random() / Math.random() + index}
-            className={styles.activeSlideWrapper}
+            className={`${styles.activeSlideWrapper} ${activeControlClassName}`}
+            style={style.activeControl}
           >
             <div className={styles.activeSlide} />
           </div>
@@ -35,18 +45,30 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
       return (
         <div
           key={Math.random() / Math.random() + index}
-          className={styles.slide}
+          className={`${styles.slide} ${inactiveControlClassName}`}
+          style={style.inactiveControl}
           onClick={handleClick(index)}
         />
       );
     });
-  }, [arrayForRender, activeSlideIndex, handleClick]);
+  }, [
+    arrayForRender,
+    activeSlideIndex,
+    style,
+    activeControlClassName,
+    inactiveControlClassName,
+    handleClick,
+  ]);
 
   return (
-    <div className={containerClassName}>
-      <span className={styles.slideNumber}>{`${
-        activeSlideIndex < 10 ? "0" : ""
-      }${activeSlideIndex}`}</span>
+    <div
+      className={`${containerClassName} ${controlsContainerClassName}`}
+      style={style.container}
+    >
+      <span
+        className={`${styles.slideNumber} ${slideNumberClassName}`}
+        style={style.slideNumber}
+      >{`${activeSlideIndex < 10 ? "0" : ""}${activeSlideIndex}`}</span>
       {renderControls()}
     </div>
   );
@@ -55,12 +77,32 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
 Controls.propTypes = {
   count: PropTypes.number,
   activeSlideIndex: PropTypes.number,
+  controlsContainerClassName: PropTypes.string,
+  slideNumberClassName: PropTypes.string,
+  activeControlClassName: PropTypes.string,
+  inactiveControlClassName: PropTypes.string,
+  style: PropTypes.shape({
+    container: PropTypes.object,
+    slideNumber: PropTypes.object,
+    activeControl: PropTypes.object,
+    inactiveControl: PropTypes.object,
+  }),
   onClick: PropTypes.func,
 };
 
 Controls.defaultProps = {
   count: 1,
   activeSlideIndex: 0,
+  controlsContainerClassName: "",
+  slideNumberClassName: "",
+  activeControlClassName: "",
+  inactiveControlClassName: "",
+  style: {
+    container: {},
+    slideNumber: {},
+    activeControl: {},
+    inactiveControl: {},
+  },
   onClick: () => {},
 };
 

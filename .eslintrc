@@ -25,7 +25,7 @@
   },
   "rules": {
     "space-before-function-paren": 0,
-    "react/prop-types": 0,
+    "react/prop-types": 1,
     "react/jsx-handler-names": 0,
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
@@ -33,6 +33,10 @@
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "no-unused-vars": [
+      "warn",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ]
   }
 }
