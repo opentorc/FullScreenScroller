@@ -10,6 +10,11 @@ const FullScreenScroller = ({
   desktopBreakPoint,
   containerStyle,
   controlsStyle,
+  containerClassName,
+  controlsContainerClassName,
+  slideNumberClassName,
+  activeControlClassName,
+  inactiveControlClassName,
 }) => {
   const [activeSlide, setActiveSlide] = useState(1);
   const [isScrollingAllowed, setIsScrollingAllowed] = useState(true);
@@ -274,12 +279,16 @@ const FullScreenScroller = ({
   }, [isDesktop, handleResize, subscribe, unsubscribe]);
 
   return (
-    <div style={containerStyle}>
+    <div className={containerClassName} style={containerStyle}>
       {children}
       {controls && (
         <Controls
           count={totalSlidesCount}
           activeSlideIndex={activeSlide}
+          controlsContainerClassName={controlsContainerClassName}
+          slideNumberClassName={slideNumberClassName}
+          activeControlClassName={activeControlClassName}
+          inactiveControlClassName={inactiveControlClassName}
           style={controlsStyle}
           onClick={handleControlClick}
         />
@@ -292,6 +301,11 @@ FullScreenScroller.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
   controls: PropTypes.bool,
   desktopBreakPoint: PropTypes.number,
+  containerClassName: PropTypes.string,
+  controlsContainerClassName: PropTypes.string,
+  slideNumberClassName: PropTypes.string,
+  activeControlClassName: PropTypes.string,
+  inactiveControlClassName: PropTypes.string,
   containerStyle: PropTypes.object,
   controlsStyle: PropTypes.shape({
     container: PropTypes.object,
@@ -305,6 +319,11 @@ FullScreenScroller.defaultProps = {
   children: undefined,
   controls: true,
   desktopBreakPoint: 1024,
+  containerClassName: "",
+  controlsContainerClassName: "",
+  slideNumberClassName: "",
+  activeControlClassName: "",
+  inactiveControlClassName: "",
   containerStyle: {},
   controlsStyle: {
     container: {},

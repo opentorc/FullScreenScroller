@@ -57,3 +57,8 @@ function App() {
 | `controlsStyle.slideNumber`     | `object`  | `The styles object for the current slide number`               |            `{}` |
 | `controlsStyle.activeControl`   | `object`  | `The styles object for the active control circle`              |            `{}` |
 | `controlsStyle.inactiveControl` | `object`  | `The styles object for the inactive control circle`            |            `{}` |
+| `containerClassName`            | `string`  | `className for the parent container of the scroller`           |            `""` |
+| `controlsContainerClassName`    | `string`  | `className for the parent container of the controls`           |            `""` |
+| `slideNumberClassName`          | `string`  | `className for the current slide number`                       |            `""` |
+| `activeControlClassName`        | `string`  | `className for the active control circle`                      |            `""` |
+| `inactiveControlClassName`      | `string`  | `className for the inactive control circle`                    |            `""` |
