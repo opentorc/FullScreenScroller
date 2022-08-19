@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
+import React, { useCallback, useMemo } from "react";
 
 import styles from "./Controls.module.css";
 
@@ -20,10 +20,6 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
         index === arrayForRender.length - 1 &&
         activeSlideIndex >= arrayForRender.length;
       const isActiveSlide = isLastSlide || index === activeSlideIndex - 1;
-
-      if (index === 0) {
-        return null;
-      }
 
       if (isActiveSlide) {
         return (
@@ -48,7 +44,9 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
 
   return (
     <div className={containerClassName}>
-      <span className={styles.slideNumber}>0{activeSlideIndex - 1}</span>
+      <span className={styles.slideNumber}>{`${
+        activeSlideIndex < 10 ? "0" : ""
+      }${activeSlideIndex}`}</span>
       {renderControls()}
     </div>
   );
@@ -57,13 +55,13 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
 Controls.propTypes = {
   count: PropTypes.number,
   activeSlideIndex: PropTypes.number,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 Controls.defaultProps = {
   count: 1,
   activeSlideIndex: 0,
-  onClick: () => {}
+  onClick: () => {},
 };
 
 export default Controls;

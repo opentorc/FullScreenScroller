@@ -43,6 +43,7 @@ function App() {
 <ul>
   <li>Press arrow right / arrow down / page down / wheel down to scroll to next screen</li>
   <li>Press arrow left / arrow top / page up / wheel up to scroll to previos screen</li>
+  <li>Press 1, 2...9 to jump to a specific screen</li>
 </ul>
 
 ## Props
