@@ -7,7 +7,7 @@
     "prettier/standard",
     "prettier/react"
   ],
-  "plugins": ["react-hooks"],
+  "plugins": ["simple-import-sort", "react-hooks"],
   "env": {
     "node": true
   },
@@ -30,6 +30,8 @@
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
     "import/export": 0,
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }

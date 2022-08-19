@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
+import React, { useCallback, useMemo } from "react";
 
 import styles from "./Controls.module.css";
 
@@ -55,13 +55,13 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
 Controls.propTypes = {
   count: PropTypes.number,
   activeSlideIndex: PropTypes.number,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 Controls.defaultProps = {
   count: 1,
   activeSlideIndex: 0,
-  onClick: () => {}
+  onClick: () => {},
 };
 
 export default Controls;

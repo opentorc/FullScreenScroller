@@ -1,29 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import Controls from "./components/Controls";
-
-const SCROLL_KEY_CODES = { top: [33, 37, 38], bottom: [34, 39, 40] };
-const NUMBERS_KEY_CODES_LINKING = {
-  49: 1,
-  97: 1,
-  50: 2,
-  98: 2,
-  51: 3,
-  99: 3,
-  52: 4,
-  100: 4,
-  53: 5,
-  101: 5,
-  54: 6,
-  102: 6,
-  55: 7,
-  103: 7,
-  56: 8,
-  104: 8,
-  57: 9,
-  105: 9
-};
+import { NUMBERS_KEY_CODES_LINKING, SCROLL_KEY_CODES } from "./utils/constants";
 
 const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
   const [activeSlide, setActiveSlide] = useState(1);
@@ -38,7 +17,7 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
   const scrollToPosition = useCallback((direction, position) => {
     window.scrollTo({
       [direction]: position,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   }, []);
 
@@ -124,7 +103,7 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
       getNextActiveSlide,
       getNextScrollPosition,
       scrollToPosition,
-      afterSlideChangeAction
+      afterSlideChangeAction,
     ]
   );
 
@@ -151,7 +130,7 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
       const { keyCode } = e;
       const isScrollKey = [
         ...SCROLL_KEY_CODES.top,
-        ...SCROLL_KEY_CODES.bottom
+        ...SCROLL_KEY_CODES.bottom,
       ].includes(keyCode);
 
       const isNumberKey = Object.prototype.hasOwnProperty.call(
@@ -187,7 +166,7 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
       getNextActiveSlide,
       getNextScrollPosition,
       scrollToPosition,
-      afterSlideChangeAction
+      afterSlideChangeAction,
     ]
   );
 
@@ -223,7 +202,7 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
       getNextActiveSlide,
       getNextScrollPosition,
       scrollToPosition,
-      afterSlideChangeAction
+      afterSlideChangeAction,
     ]
   );
 
@@ -249,10 +228,10 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
       window.addEventListener("wheel", handleWheel, { passive: false });
       window.addEventListener("keydown", handleKeyPress, { passive: false });
       window.addEventListener("touchstart", handleTouchStart, {
-        passive: false
+        passive: false,
       });
       window.addEventListener("touchend", handleTouchEnd, {
-        passive: false
+        passive: false,
       });
 
       hideScrollbar();
@@ -264,13 +243,13 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
     function unsubscribe() {
       window.removeEventListener("wheel", handleWheel, { passive: false });
       window.removeEventListener("keydown", handleKeyPress, {
-        passive: false
+        passive: false,
       });
       window.removeEventListener("touchstart", handleTouchStart, {
-        passive: false
+        passive: false,
       });
       window.removeEventListener("touchend", handleTouchEnd, {
-        passive: false
+        passive: false,
       });
 
       showScrollbar();
@@ -304,12 +283,12 @@ const FullScreenScroller = ({ children, controls, desktopBreakPoint }) => {
 
 FullScreenScroller.propTypes = {
   controls: PropTypes.bool,
-  desktopBreakPoint: PropTypes.number
+  desktopBreakPoint: PropTypes.number,
 };
 
 FullScreenScroller.defaultProps = {
   controls: true,
-  desktopBreakPoint: 1024
+  desktopBreakPoint: 1024,
 };
 
 export default FullScreenScroller;
