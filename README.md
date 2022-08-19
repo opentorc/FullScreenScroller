@@ -1,4 +1,4 @@
-A simple fullscreen scroller component built with React. Made by Opentorc
+A simple fullscreen scroller component built with React. Made by [Opentorc](https://home.opentorc.com/)
 
 ## Installation
 
@@ -40,16 +40,20 @@ function App() {
 
 ## Basic features
 
-<ul>
-  <li>Press arrow right / arrow down / page down / wheel down to scroll to next screen</li>
-  <li>Press arrow left / arrow top / page up / wheel up to scroll to previos screen</li>
-  <li>Press 1, 2...9 to jump to a specific screen</li>
-</ul>
+| `Action`                                                  |                   `Description` |
+| :-------------------------------------------------------- | ------------------------------: |
+| `Press arrow right / arrow down / page down / wheel down` |     `Scroll to the next screen` |
+| `Press arrow left / arrow top / page up / wheel up`       | `Scroll to the previous screen` |
+| `Press 1, 2...9`                                          |     `Jump to a specific screen` |
 
 ## Props
 
-<ul>
-  <li>controls - boolean value. Whether slide navigation will be shown. True by default</li>
-
-  <li>desktopBreakPoint - number value. The width of the screen on which the module will work. By default 1024px</li>
-</ul>
+| `Name`                          | `Type`    | `Description`                                                  | `Default value` |
+| :------------------------------ | :-------- | :------------------------------------------------------------- | --------------: |
+| `controls`                      | `boolean` | `Whether slide navigation will be shown`                       |          `true` |
+| `desktopBreakPoint`             | `number`  | `The width of the device screen on which the module will work` |          `1024` |
+| `containerStyle`                | `object`  | `The styles object for the parent container of the scroller`   |            `{}` |
+| `controlsStyle.container`       | `object`  | `The styles object for the parent container of the controls`   |            `{}` |
+| `controlsStyle.slideNumber`     | `object`  | `The styles object for the current slide number`               |            `{}` |
+| `controlsStyle.activeControl`   | `object`  | `The styles object for the active control circle`              |            `{}` |
+| `controlsStyle.inactiveControl` | `object`  | `The styles object for the inactive control circle`            |            `{}` |

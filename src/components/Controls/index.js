@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from "react";
 
 import styles from "./Controls.module.css";
 
-const Controls = ({ count, activeSlideIndex, onClick }) => {
+const Controls = ({ count, activeSlideIndex, style, onClick }) => {
   const arrayForRender = useMemo(() => new Array(count).fill(true), [count]);
   const containerClassName = useMemo(() => {
     const className =
@@ -26,6 +26,7 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
           <div
             key={Math.random() / Math.random() + index}
             className={styles.activeSlideWrapper}
+            style={style.activeControl}
           >
             <div className={styles.activeSlide} />
           </div>
@@ -36,15 +37,16 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
         <div
           key={Math.random() / Math.random() + index}
           className={styles.slide}
+          style={style.inactiveControl}
           onClick={handleClick(index)}
         />
       );
     });
-  }, [arrayForRender, activeSlideIndex, handleClick]);
+  }, [arrayForRender, activeSlideIndex, style, handleClick]);
 
   return (
-    <div className={containerClassName}>
-      <span className={styles.slideNumber}>{`${
+    <div className={containerClassName} style={style.container}>
+      <span className={styles.slideNumber} style={style.slideNumber}>{`${
         activeSlideIndex < 10 ? "0" : ""
       }${activeSlideIndex}`}</span>
       {renderControls()}
@@ -55,12 +57,24 @@ const Controls = ({ count, activeSlideIndex, onClick }) => {
 Controls.propTypes = {
   count: PropTypes.number,
   activeSlideIndex: PropTypes.number,
+  style: PropTypes.shape({
+    container: PropTypes.object,
+    slideNumber: PropTypes.object,
+    activeControl: PropTypes.object,
+    inactiveControl: PropTypes.object,
+  }),
   onClick: PropTypes.func,
 };
 
 Controls.defaultProps = {
   count: 1,
   activeSlideIndex: 0,
+  style: {
+    container: {},
+    slideNumber: {},
+    activeControl: {},
+    inactiveControl: {},
+  },
   onClick: () => {},
 };
 
