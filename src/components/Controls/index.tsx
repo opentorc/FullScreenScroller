@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useMemo } from "react";
 
+import { ControlsProps } from "../../utils/interfaces/controls";
 import styles from "./Controls.module.css";
 
-const Controls = ({
+const Controls: React.FC<ControlsProps> = ({
   count,
   activeSlideIndex,
   style,
@@ -12,7 +13,7 @@ const Controls = ({
   activeControlClassName,
   inactiveControlClassName,
   onClick,
-}) => {
+}: ControlsProps) => {
   const arrayForRender = useMemo(() => new Array(count).fill(true), [count]);
   const containerClassName = useMemo(() => {
     const className =
@@ -21,10 +22,13 @@ const Controls = ({
     return className;
   }, [activeSlideIndex]);
 
-  const handleClick = useCallback((index) => () => onClick(index), [onClick]);
+  const handleClick = useCallback(
+    (index: number) => () => onClick(index),
+    [onClick]
+  );
 
   const renderControls = useCallback(() => {
-    return arrayForRender.map((el, index) => {
+    return arrayForRender.map((_, index) => {
       const isLastSlide =
         index === arrayForRender.length - 1 &&
         activeSlideIndex >= arrayForRender.length;
@@ -75,8 +79,8 @@ const Controls = ({
 };
 
 Controls.propTypes = {
-  count: PropTypes.number,
-  activeSlideIndex: PropTypes.number,
+  count: PropTypes.number.isRequired,
+  activeSlideIndex: PropTypes.number.isRequired,
   controlsContainerClassName: PropTypes.string,
   slideNumberClassName: PropTypes.string,
   activeControlClassName: PropTypes.string,
@@ -87,12 +91,10 @@ Controls.propTypes = {
     activeControl: PropTypes.object,
     inactiveControl: PropTypes.object,
   }),
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 
 Controls.defaultProps = {
-  count: 1,
-  activeSlideIndex: 0,
   controlsContainerClassName: "",
   slideNumberClassName: "",
   activeControlClassName: "",
@@ -103,7 +105,6 @@ Controls.defaultProps = {
     activeControl: {},
     inactiveControl: {},
   },
-  onClick: () => {},
 };
 
 export default Controls;

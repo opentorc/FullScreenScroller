@@ -1,13 +1,13 @@
 {
   "name": "@torc/react-fullscreen-scroller",
-  "version": "1.0.0",
+  "version": "0.1.14",
   "description": "A simple fullscreen scroller component built with React",
   "author": "opentorc",
   "license": "MIT",
   "repository": "opentorc/FullScreenScroller",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
-  "source": "src/index.js",
+  "source": "src/index.tsx",
   "homepage": "https://github.com/opentorc/FullScreenScroller/",
   "engines": {
     "node": ">=10"
@@ -26,18 +26,15 @@
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
-    "test": "run-s test:unit test:lint test:build",
-    "test:build": "run-s build",
-    "test:lint": "eslint .",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "predeploy": "cd example && npm install && npm run build"
   },
   "peerDependencies": {
     "react": "^16.0.0"
   },
   "devDependencies": {
+    "@types/prop-types": "^15.7.5",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
@@ -59,9 +56,13 @@
     "prop-types": "^15.8.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "typescript": "^3.9.10"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@types/node": "^18.7.13"
+  }
 }

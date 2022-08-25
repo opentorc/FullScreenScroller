@@ -3,8 +3,9 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import Controls from "./components/Controls";
 import { NUMBERS_KEY_CODES_LINKING, SCROLL_KEY_CODES } from "./utils/constants";
+import { Props } from "./utils/interfaces/scroller";
 
-const FullScreenScroller = ({
+const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   controls,
   desktopBreakPoint,
@@ -15,7 +16,7 @@ const FullScreenScroller = ({
   slideNumberClassName,
   activeControlClassName,
   inactiveControlClassName,
-}) => {
+}: Props) => {
   const [activeSlide, setActiveSlide] = useState(1);
   const [isScrollingAllowed, setIsScrollingAllowed] = useState(true);
   const [touchStartPosition, setTouchStartPosition] = useState(0);
@@ -25,12 +26,15 @@ const FullScreenScroller = ({
 
   const totalSlidesCount = useMemo(() => children.length, [children.length]);
 
-  const scrollToPosition = useCallback((direction, position) => {
-    window.scrollTo({
-      [direction]: position,
-      behavior: "smooth",
-    });
-  }, []);
+  const scrollToPosition = useCallback(
+    (direction: "top" | "bottom", position: number) => {
+      window.scrollTo({
+        [direction]: position,
+        behavior: "smooth",
+      });
+    },
+    []
+  );
 
   const afterSlideChangeAction = useCallback(() => {
     setIsScrollingAllowed(false);
@@ -41,7 +45,7 @@ const FullScreenScroller = ({
   }, []);
 
   const getNextActiveSlide = useCallback(
-    (direction) => {
+    (direction: "top" | "bottom") => {
       switch (true) {
         case direction === "bottom" && activeSlide === totalSlidesCount: {
           return totalSlidesCount;
@@ -60,14 +64,14 @@ const FullScreenScroller = ({
         }
 
         default:
-          break;
+          return activeSlide;
       }
     },
     [activeSlide, totalSlidesCount]
   );
 
   const getNextScrollPosition = useCallback(
-    (direction) => {
+    (direction: "top" | "bottom") => {
       const nextActiveSlide = getNextActiveSlide(direction);
 
       switch (direction) {
@@ -84,7 +88,7 @@ const FullScreenScroller = ({
   );
 
   const handleControlClick = useCallback(
-    (index) => {
+    (index: number) => {
       const nextScrollPosition = window.innerHeight * index;
 
       scrollToPosition("top", nextScrollPosition);
@@ -95,9 +99,7 @@ const FullScreenScroller = ({
   );
 
   const handleWheel = useCallback(
-    function handleWheel(e) {
-      e.preventDefault();
-
+    function handleWheel(e: React.WheelEvent): void {
       if (isScrollingAllowed) {
         const direction = e.deltaY > 0 ? "bottom" : "top";
         const nextActiveSlide = getNextActiveSlide(direction);
@@ -119,7 +121,7 @@ const FullScreenScroller = ({
   );
 
   const handleNumberKeyPress = useCallback(
-    (keyCode) => {
+    (keyCode: number) => {
       const nextActiveSlide = NUMBERS_KEY_CODES_LINKING[keyCode];
       const isNextSlideDefined = nextActiveSlide <= totalSlidesCount;
       const nextScrollPosition = window.innerHeight * (nextActiveSlide - 1);
@@ -137,7 +139,7 @@ const FullScreenScroller = ({
   );
 
   const handleKeyPress = useCallback(
-    (e) => {
+    (e: React.KeyboardEvent) => {
       const { keyCode } = e;
       const isScrollKey = [
         ...SCROLL_KEY_CODES.top,
@@ -156,8 +158,6 @@ const FullScreenScroller = ({
       }
 
       if (isScrollKey && isScrollingAllowed) {
-        e.preventDefault();
-
         const direction = SCROLL_KEY_CODES.bottom.includes(keyCode)
           ? "bottom"
           : "top";
@@ -181,9 +181,7 @@ const FullScreenScroller = ({
     ]
   );
 
-  const handleTouchStart = useCallback((e) => {
-    e.preventDefault();
-
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     const { changedTouches } = e;
     const { clientY } = changedTouches[0];
 
@@ -191,9 +189,7 @@ const FullScreenScroller = ({
   }, []);
 
   const handleTouchEnd = useCallback(
-    (e) => {
-      e.preventDefault();
-
+    (e: React.TouchEvent) => {
       if (isScrollingAllowed) {
         const { changedTouches } = e;
         const { clientY } = changedTouches[0];
@@ -234,39 +230,13 @@ const FullScreenScroller = ({
     html.style.overflowY = "visible";
   };
 
-  const subscribe = useCallback(
-    function subscribe() {
-      window.addEventListener("wheel", handleWheel, { passive: false });
-      window.addEventListener("keydown", handleKeyPress, { passive: false });
-      window.addEventListener("touchstart", handleTouchStart, {
-        passive: false,
-      });
-      window.addEventListener("touchend", handleTouchEnd, {
-        passive: false,
-      });
+  const subscribe = useCallback(function subscribe() {
+    hideScrollbar();
+  }, []);
 
-      hideScrollbar();
-    },
-    [handleWheel, handleKeyPress, handleTouchStart, handleTouchEnd]
-  );
-
-  const unsubscribe = useCallback(
-    function unsubscribe() {
-      window.removeEventListener("wheel", handleWheel, { passive: false });
-      window.removeEventListener("keydown", handleKeyPress, {
-        passive: false,
-      });
-      window.removeEventListener("touchstart", handleTouchStart, {
-        passive: false,
-      });
-      window.removeEventListener("touchend", handleTouchEnd, {
-        passive: false,
-      });
-
-      showScrollbar();
-    },
-    [handleWheel, handleKeyPress, handleTouchStart, handleTouchEnd]
-  );
+  const unsubscribe = useCallback(function unsubscribe() {
+    showScrollbar();
+  }, []);
 
   useEffect(() => {
     if (isDesktop) {
@@ -279,7 +249,15 @@ const FullScreenScroller = ({
   }, [isDesktop, handleResize, subscribe, unsubscribe]);
 
   return (
-    <div className={containerClassName} style={containerStyle}>
+    <div
+      tabIndex={-1}
+      className={containerClassName}
+      style={containerStyle}
+      onWheel={handleWheel}
+      onKeyDown={handleKeyPress}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {children}
       {controls && (
         <Controls
@@ -298,7 +276,6 @@ const FullScreenScroller = ({
 };
 
 FullScreenScroller.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
   controls: PropTypes.bool,
   desktopBreakPoint: PropTypes.number,
   containerClassName: PropTypes.string,
@@ -316,7 +293,6 @@ FullScreenScroller.propTypes = {
 };
 
 FullScreenScroller.defaultProps = {
-  children: undefined,
   controls: true,
   desktopBreakPoint: 1024,
   containerClassName: "",
