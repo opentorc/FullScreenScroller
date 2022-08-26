@@ -10,10 +10,10 @@ const App = () => {
       desktopBreakPoint={0}
       controls
     >
-      <div className="screen" />
-      <div className="screen" />
-      <div className="screen" />
-      <div className="screen" />
+      <div className="screen screen-1" />
+      <div className="screen screen-2" />
+      <div className="screen screen-3" />
+      <div className="screen screen-4" />
     </FullScreenScroller>
   );
 };

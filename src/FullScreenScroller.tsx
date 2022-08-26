@@ -12,11 +12,13 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
   desktopBreakPoint,
   containerStyle,
   controlsStyle,
+  slideContainerStyle,
   containerClassName,
   controlsContainerClassName,
   slideNumberClassName,
   activeControlClassName,
   inactiveControlClassName,
+  slideContainerClassName,
   hideControlsOnFirstSlide,
 }: Props) => {
   const [activeSlide, setActiveSlide] = useState(1);
@@ -260,6 +262,22 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
     [handleWheel, handleKeyPress]
   );
 
+  const renderChildren = useCallback(() => {
+    return children.map((child, index) => {
+      const key = Math.random() / Math.random() + index;
+
+      return (
+        <div
+          key={key}
+          className={slideContainerClassName}
+          style={slideContainerStyle}
+        >
+          {child}
+        </div>
+      );
+    });
+  }, [children, slideContainerClassName, slideContainerStyle]);
+
   useEffect(() => {
     if (isDesktop) {
       subscribe();
@@ -272,7 +290,7 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
 
   return (
     <div className={containerClassName} style={containerStyle}>
-      {children}
+      {renderChildren()}
       {controls && (
         <Controls
           count={totalSlidesCount}
@@ -298,7 +316,9 @@ FullScreenScroller.propTypes = {
   slideNumberClassName: PropTypes.string,
   activeControlClassName: PropTypes.string,
   inactiveControlClassName: PropTypes.string,
+  slideContainerClassName: PropTypes.string,
   containerStyle: PropTypes.object,
+  slideContainerStyle: PropTypes.object,
   hideControlsOnFirstSlide: PropTypes.bool,
   controlsStyle: PropTypes.shape({
     container: PropTypes.object,
@@ -316,7 +336,9 @@ FullScreenScroller.defaultProps = {
   slideNumberClassName: "",
   activeControlClassName: "",
   inactiveControlClassName: "",
+  slideContainerClassName: "",
   containerStyle: {},
+  slideContainerStyle: {},
   hideControlsOnFirstSlide: true,
   controlsStyle: {
     container: {},
