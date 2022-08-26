@@ -16,7 +16,8 @@
     "noEmit": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
-    "declaration": true
+    "declaration": true,
+    "strictFunctionTypes": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "example"]

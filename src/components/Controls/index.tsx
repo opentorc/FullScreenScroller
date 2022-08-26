@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useMemo } from "react";
 
-import { ControlsProps } from "../../utils/interfaces/controls";
+import { Props } from "../../utils/interfaces/controls";
 import styles from "./Controls.module.css";
 
-const Controls: React.FC<ControlsProps> = ({
+const Controls: React.FC<Props> = ({
   count,
   activeSlideIndex,
   style,
@@ -13,7 +13,7 @@ const Controls: React.FC<ControlsProps> = ({
   activeControlClassName,
   inactiveControlClassName,
   onClick,
-}: ControlsProps) => {
+}: Props) => {
   const arrayForRender = useMemo(() => new Array(count).fill(true), [count]);
   const containerClassName = useMemo(() => {
     const className =

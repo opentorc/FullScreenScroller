@@ -1,6 +1,6 @@
 import { ControlsStyle } from "./scroller";
 
-interface ControlsProps {
+interface Props {
   count: number;
   activeSlideIndex: number;
   style: ControlsStyle;
@@ -11,4 +11,4 @@ interface ControlsProps {
   onClick(index: number): any;
 }
 
-export type { ControlsProps };
+export type { Props };
