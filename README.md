@@ -48,18 +48,20 @@ function App() {
 
 ## Props
 
-| Name                          | Type    | Description                                                  | Default value |
-| :---------------------------- | :------ | :----------------------------------------------------------- | ------------: |
-| controls                      | boolean | Whether slide navigation will be shown                       |          true |
-| hideControlsOnFirstSlide      | boolean | Whether slide navigation will be hidden on the first slide   |          true |
-| desktopBreakPoint             | number  | The width of the device screen on which the module will work |          1024 |
-| containerStyle                | object  | The styles object for the parent container of the scroller   |            {} |
-| controlsStyle.container       | object  | The styles object for the parent container of the controls   |            {} |
-| controlsStyle.slideNumber     | object  | The styles object for the current slide number               |            {} |
-| controlsStyle.activeControl   | object  | The styles object for the active control circle              |            {} |
-| controlsStyle.inactiveControl | object  | The styles object for the inactive control circle            |            {} |
-| containerClassName            | string  | className for the parent container of the scroller           |            "" |
-| controlsContainerClassName    | string  | className for the parent container of the controls           |            "" |
-| slideNumberClassName          | string  | className for the current slide number                       |            "" |
-| activeControlClassName        | string  | className for the active control circle                      |            "" |
-| inactiveControlClassName      | string  | className for the inactive control circle                    |            "" |
+| Name                          | Type    | Description                                                   | Default value |
+| :---------------------------- | :------ | :------------------------------------------------------------ | ------------: |
+| controls                      | boolean | Whether slide navigation will be shown                        |          true |
+| hideControlsOnFirstSlide      | boolean | Whether slide navigation will be hidden on the first slide    |          true |
+| desktopBreakPoint             | number  | The width of the device screen on which the module will work  |          1024 |
+| containerStyle                | object  | The styles object for the parent container of the scroller    |            {} |
+| slideContainerStyle           | object  | The styles object for the container of each slide in scroller |            {} |
+| controlsStyle.container       | object  | The styles object for the parent container of the controls    |            {} |
+| controlsStyle.slideNumber     | object  | The styles object for the current slide number                |            {} |
+| controlsStyle.activeControl   | object  | The styles object for the active control circle               |            {} |
+| controlsStyle.inactiveControl | object  | The styles object for the inactive control circle             |            {} |
+| containerClassName            | string  | className for the parent container of the scroller            |            "" |
+| slideContainerClassName       | string  | className for the container of each slide in scroller         |            "" |
+| controlsContainerClassName    | string  | className for the parent container of the controls            |            "" |
+| slideNumberClassName          | string  | className for the current slide number                        |            "" |
+| activeControlClassName        | string  | className for the active control circle                       |            "" |
+| inactiveControlClassName      | string  | className for the inactive control circle                     |            "" |
