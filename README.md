@@ -51,6 +51,7 @@ function App() {
 | Name                          | Type    | Description                                                  | Default value |
 | :---------------------------- | :------ | :----------------------------------------------------------- | ------------: |
 | controls                      | boolean | Whether slide navigation will be shown                       |          true |
+| hideControlsOnFirstSlide      | boolean | Whether slide navigation will be hidden on the first slide   |          true |
 | desktopBreakPoint             | number  | The width of the device screen on which the module will work |          1024 |
 | containerStyle                | object  | The styles object for the parent container of the scroller   |            {} |
 | controlsStyle.container       | object  | The styles object for the parent container of the controls   |            {} |
