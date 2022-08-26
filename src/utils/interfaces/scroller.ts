@@ -18,6 +18,7 @@ interface Props {
   slideNumberClassName?: string;
   activeControlClassName?: string;
   inactiveControlClassName?: string;
+  hideControlsOnFirstSlide?: boolean;
 }
 
 export type { ControlsStyle, Props };

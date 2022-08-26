@@ -17,6 +17,7 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
   slideNumberClassName,
   activeControlClassName,
   inactiveControlClassName,
+  hideControlsOnFirstSlide,
 }: Props) => {
   const [activeSlide, setActiveSlide] = useState(1);
   const [isScrollingAllowed, setIsScrollingAllowed] = useState(true);
@@ -281,6 +282,7 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
           activeControlClassName={activeControlClassName}
           inactiveControlClassName={inactiveControlClassName}
           style={controlsStyle}
+          hideControlsOnFirstSlide={hideControlsOnFirstSlide}
           onClick={handleControlClick}
         />
       )}
@@ -297,6 +299,7 @@ FullScreenScroller.propTypes = {
   activeControlClassName: PropTypes.string,
   inactiveControlClassName: PropTypes.string,
   containerStyle: PropTypes.object,
+  hideControlsOnFirstSlide: PropTypes.bool,
   controlsStyle: PropTypes.shape({
     container: PropTypes.object,
     slideNumber: PropTypes.object,
@@ -314,6 +317,7 @@ FullScreenScroller.defaultProps = {
   activeControlClassName: "",
   inactiveControlClassName: "",
   containerStyle: {},
+  hideControlsOnFirstSlide: true,
   controlsStyle: {
     container: {},
     slideNumber: {},

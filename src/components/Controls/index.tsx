@@ -12,15 +12,18 @@ const Controls: React.FC<Props> = ({
   slideNumberClassName,
   activeControlClassName,
   inactiveControlClassName,
+  hideControlsOnFirstSlide,
   onClick,
 }: Props) => {
   const arrayForRender = useMemo(() => new Array(count).fill(true), [count]);
   const containerClassName = useMemo(() => {
     const className =
-      activeSlideIndex <= 1 ? styles.containerHidden : styles.container;
+      activeSlideIndex <= 1 && hideControlsOnFirstSlide
+        ? styles.containerHidden
+        : styles.container;
 
     return className;
-  }, [activeSlideIndex]);
+  }, [activeSlideIndex, hideControlsOnFirstSlide]);
 
   const handleClick = useCallback(
     (index: number) => () => onClick(index),

@@ -1,6 +1,6 @@
 {
   "name": "@torc/react-fullscreen-scroller",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "A simple fullscreen scroller component built with React",
   "author": "opentorc",
   "license": "MIT",

@@ -5,7 +5,11 @@ import "@torc/react-fullscreen-scroller/dist/index.css";
 
 const App = () => {
   return (
-    <FullScreenScroller desktopBreakPoint={0} controls>
+    <FullScreenScroller
+      hideControlsOnFirstSlide={false}
+      desktopBreakPoint={0}
+      controls
+    >
       <div className="screen" />
       <div className="screen" />
       <div className="screen" />
