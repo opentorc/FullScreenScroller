@@ -40,11 +40,11 @@ function App() {
 
 ## Basic features
 
-| Action                                                  |                   Description |
-| :------------------------------------------------------ | ----------------------------: |
-| Press arrow right / arrow down / page down / wheel down |     Scroll to the next screen |
-| Press arrow left / arrow top / page up / wheel up       | Scroll to the previous screen |
-| Press 1, 2...9                                          |     Jump to a specific screen |
+| Action                                    |                   Description |
+| :---------------------------------------- | ----------------------------: |
+| Press arrow down / page down / wheel down |     Scroll to the next screen |
+| Press arrow top / page up / wheel up      | Scroll to the previous screen |
+| Press 1, 2...9                            |     Jump to a specific screen |
 
 ## Props
 

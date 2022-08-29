@@ -1,4 +1,4 @@
-export const SCROLL_KEY_CODES = { top: [33, 37, 38], bottom: [34, 39, 40] };
+export const SCROLL_KEY_CODES = { top: [33, 38], bottom: [34, 40] };
 export const NUMBERS_KEY_CODES_LINKING = {
   49: 1,
   97: 1,
