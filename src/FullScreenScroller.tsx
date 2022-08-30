@@ -4,7 +4,11 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Controls from "./components/Controls";
 import { NUMBERS_KEY_CODES_LINKING, SCROLL_KEY_CODES } from "./utils/constants";
 import { Props } from "./utils/interfaces/scroller";
-import { KeyboardEvent, WheelEvent } from "./utils/interfaces/shared";
+import {
+  KeyboardEvent,
+  TouchEvent,
+  WheelEvent,
+} from "./utils/interfaces/shared";
 
 const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
   children,
@@ -23,7 +27,7 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
 }: Props) => {
   const [activeSlide, setActiveSlide] = useState(1);
   const [isScrollingAllowed, setIsScrollingAllowed] = useState(true);
-  // const [touchStartPosition, setTouchStartPosition] = useState(0);
+  const [touchStartPosition, setTouchStartPosition] = useState(0);
   const [isDesktop, setIsDesktop] = useState(
     window.innerWidth >= desktopBreakPoint
   );
@@ -185,37 +189,41 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
     ]
   );
 
-  // const handleTouchStart = useCallback((e: TouchEvent) => {
-  //   const { changedTouches } = e;
-  //   const { clientY } = changedTouches[0];
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    e.preventDefault();
 
-  //   setTouchStartPosition(clientY);
-  // }, []);
+    const { changedTouches } = e;
+    const { clientY } = changedTouches[0];
 
-  // const handleTouchEnd = useCallback(
-  //   (e: TouchEvent) => {
-  //     if (isScrollingAllowed) {
-  //       const { changedTouches } = e;
-  //       const { clientY } = changedTouches[0];
-  //       const direction = touchStartPosition > clientY ? "bottom" : "top";
-  //       const nextActiveSlide = getNextActiveSlide(direction);
-  //       const nextScrollPosition = getNextScrollPosition(direction);
+    setTouchStartPosition(clientY);
+  }, []);
 
-  //       scrollToPosition("top", nextScrollPosition);
-  //       afterSlideChangeAction();
+  const handleTouchEnd = useCallback(
+    (e: TouchEvent) => {
+      e.preventDefault();
 
-  //       setActiveSlide(nextActiveSlide);
-  //     }
-  //   },
-  //   [
-  //     isScrollingAllowed,
-  //     touchStartPosition,
-  //     getNextActiveSlide,
-  //     getNextScrollPosition,
-  //     scrollToPosition,
-  //     afterSlideChangeAction,
-  //   ]
-  // );
+      if (isScrollingAllowed) {
+        const { changedTouches } = e;
+        const { clientY } = changedTouches[0];
+        const direction = touchStartPosition > clientY ? "bottom" : "top";
+        const nextActiveSlide = getNextActiveSlide(direction);
+        const nextScrollPosition = getNextScrollPosition(direction);
+
+        scrollToPosition("top", nextScrollPosition);
+        afterSlideChangeAction();
+
+        setActiveSlide(nextActiveSlide);
+      }
+    },
+    [
+      isScrollingAllowed,
+      touchStartPosition,
+      getNextActiveSlide,
+      getNextScrollPosition,
+      scrollToPosition,
+      afterSlideChangeAction,
+    ]
+  );
 
   const handleResize = useCallback(
     () => setIsDesktop(window.innerWidth >= desktopBreakPoint),
@@ -238,31 +246,31 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
     function subscribe() {
       window.addEventListener("wheel", handleWheel, { passive: false });
       window.addEventListener("keydown", handleKeyPress, { passive: false });
-      // window.addEventListener("touchstart", handleTouchStart, {
-      //   passive: false,
-      // });
-      // window.addEventListener("touchend", handleTouchEnd, {
-      //   passive: false,
-      // });
+      window.addEventListener("touchstart", handleTouchStart, {
+        passive: false,
+      });
+      window.addEventListener("touchend", handleTouchEnd, {
+        passive: false,
+      });
 
       hideScrollbar();
     },
-    [handleWheel, handleKeyPress]
+    [handleWheel, handleKeyPress, handleTouchStart, handleTouchEnd]
   );
 
   const unsubscribe = useCallback(
     function unsubscribe() {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyPress);
-      // window.removeEventListener("touchstart", handleTouchStart);
-      // window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
 
       showScrollbar();
     },
-    [handleWheel, handleKeyPress]
+    [handleWheel, handleKeyPress, handleTouchStart, handleTouchEnd]
   );
 
-  const renderChildren = useCallback(() => {
+  const renderedChildren = useMemo(() => {
     return children.map((child, index) => {
       const key = Math.random() / Math.random() + index;
 
@@ -276,7 +284,8 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
         </div>
       );
     });
-  }, [children, slideContainerClassName, slideContainerStyle]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isDesktop) {
@@ -290,7 +299,7 @@ const FullScreenScroller: React.FC<React.PropsWithChildren<Props>> = ({
 
   return (
     <div className={containerClassName} style={containerStyle}>
-      {renderChildren()}
+      {renderedChildren}
       {controls && (
         <Controls
           count={totalSlidesCount}

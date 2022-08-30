@@ -6,4 +6,9 @@ interface KeyboardEvent {
   keyCode: number;
 }
 
-export type { KeyboardEvent, WheelEvent };
+interface TouchEvent {
+  changedTouches: Object;
+  preventDefault(): any;
+}
+
+export type { KeyboardEvent, TouchEvent, WheelEvent };
